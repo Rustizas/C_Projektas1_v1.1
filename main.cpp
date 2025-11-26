@@ -23,9 +23,6 @@ const void *last_address(const Container &c)
 
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-
     random_device rd;
     mt19937 gen(rd());
     uniform_int_distribution<> dist(1, 10);
@@ -67,8 +64,11 @@ int main()
                 Studentas stud;
                 int ndSk;
                 int ivestis;
+                string v, p;
                 cout << "Iveskite studento varda ir pavarde: ";
-                cin >> stud.vardas >> stud.pavarde;
+                cin >> v >> p;
+                stud.setVardas(v);
+                stud.setPavarde(p);
                 cout << "Ar norite ivesti pazymius pats (1), ar generuoti atsitiktinai (2)? ";
                 cin >> ivestis;
                 if (ivestis == 1)
@@ -82,43 +82,30 @@ int main()
                         cin >> n;
                         if (n == 0)
                             break;
-                        stud.namudarbai.push_back(n);
-                        if (ndSk != 0 && (int)stud.namudarbai.size() >= ndSk)
+                        stud.addNamuDarbas(n);
+                        if (ndSk != 0 && (int)stud.getNamudarbai().size() >= ndSk)
                             break;
                     }
                     cout << "Iveskite egzamino rezultata: ";
-                    cin >> stud.egzaminas;
+                    int egz;
+                    cin >> egz;
+                    stud.setEgzaminas(egz);
                 }
                 else
                 {
                     cout << "Kiek namu darbu generuoti? ";
                     cin >> ndSk;
                     for (int i = 0; i < ndSk; i++)
-                        stud.namudarbai.push_back(dist(gen));
-                    stud.egzaminas = dist(gen);
+                        stud.addNamuDarbas(dist(gen));
+                    stud.setEgzaminas(dist(gen));
                     cout << "Sugeneruoti ND: ";
-                    for (int x : stud.namudarbai)
+                    for (int x : stud.getNamudarbai())
                         cout << x << " ";
-                    cout << " Egzaminas: " << stud.egzaminas << "\n";
+                    cout << " Egzaminas: " << stud.getEgzaminas() << "\n";
                 }
 
-                double sum = 0;
-                for (int x : stud.namudarbai)
-                    sum += x;
-                double vid = stud.namudarbai.empty() ? 0.0 : sum / (double)stud.namudarbai.size();
-                stud.balasVid = 0.4 * vid + 0.6 * stud.egzaminas;
-
-                bubbleSort(stud.namudarbai);
-                double mediana = 0.0;
-                int n = (int)stud.namudarbai.size();
-                if (n > 0)
-                {
-                    if (n % 2 == 1)
-                        mediana = stud.namudarbai[n / 2];
-                    else
-                        mediana = (stud.namudarbai[n / 2 - 1] + stud.namudarbai[n / 2]) / 2.0;
-                }
-                stud.balasMed = 0.4 * mediana + 0.6 * stud.egzaminas;
+                stud.skaiciuotiVidurki();
+                stud.skaiciuotiMediana();
 
                 studentaivisi.push_back(stud);
 
@@ -134,8 +121,11 @@ int main()
                 Studentas stud;
                 int ndSk;
                 int ivestis;
+                string v, p;
                 cout << "Iveskite studento varda ir pavarde: ";
-                cin >> stud.vardas >> stud.pavarde;
+                cin >> v >> p;
+                stud.setVardas(v);
+                stud.setPavarde(p);
                 cout << "Ar norite ivesti pazymius pats (1), ar generuoti atsitiktinai (2)? ";
                 cin >> ivestis;
                 if (ivestis == 1)
@@ -149,43 +139,30 @@ int main()
                         cin >> n;
                         if (n == 0)
                             break;
-                        stud.namudarbai.push_back(n);
-                        if (ndSk != 0 && (int)stud.namudarbai.size() >= ndSk)
+                        stud.addNamuDarbas(n);
+                        if (ndSk != 0 && (int)stud.getNamudarbai().size() >= ndSk)
                             break;
                     }
                     cout << "Iveskite egzamino rezultata: ";
-                    cin >> stud.egzaminas;
+                    int egz;
+                    cin >> egz;
+                    stud.setEgzaminas(egz);
                 }
                 else
                 {
                     cout << "Kiek namu darbu generuoti? ";
                     cin >> ndSk;
                     for (int i = 0; i < ndSk; i++)
-                        stud.namudarbai.push_back(dist(gen));
-                    stud.egzaminas = dist(gen);
+                        stud.addNamuDarbas(dist(gen));
+                    stud.setEgzaminas(dist(gen));
                     cout << "Sugeneruoti ND: ";
-                    for (int x : stud.namudarbai)
+                    for (int x : stud.getNamudarbai())
                         cout << x << " ";
-                    cout << " Egzaminas: " << stud.egzaminas << "\n";
+                    cout << " Egzaminas: " << stud.getEgzaminas() << "\n";
                 }
 
-                double sum = 0;
-                for (int x : stud.namudarbai)
-                    sum += x;
-                double vid = stud.namudarbai.empty() ? 0.0 : sum / (double)stud.namudarbai.size();
-                stud.balasVid = 0.4 * vid + 0.6 * stud.egzaminas;
-
-                bubbleSort(stud.namudarbai);
-                double mediana = 0.0;
-                int n = (int)stud.namudarbai.size();
-                if (n > 0)
-                {
-                    if (n % 2 == 1)
-                        mediana = stud.namudarbai[n / 2];
-                    else
-                        mediana = (stud.namudarbai[n / 2 - 1] + stud.namudarbai[n / 2]) / 2.0;
-                }
-                stud.balasMed = 0.4 * mediana + 0.6 * stud.egzaminas;
+                stud.skaiciuotiVidurki();
+                stud.skaiciuotiMediana();
 
                 studentaivisi.push_back(stud);
 
@@ -217,35 +194,25 @@ int main()
         int ndSk = stulpeliai - 3;
 
         vector<Studentas> studentaivisi;
-        Studentas stud;
-        while (in >> stud.vardas >> stud.pavarde)
+        string v, p;
+        while (in >> v >> p)
         {
-            stud.namudarbai.clear();
+            Studentas stud;
+            stud.setVardas(v);
+            stud.setPavarde(p);
+            stud.clearNamudarbai();
             for (int i = 0; i < ndSk; i++)
             {
                 int paz;
                 in >> paz;
-                stud.namudarbai.push_back(paz);
+                stud.addNamuDarbas(paz);
             }
-            in >> stud.egzaminas;
+            int egz;
+            in >> egz;
+            stud.setEgzaminas(egz);
 
-            double sum = 0;
-            for (int x : stud.namudarbai)
-                sum += x;
-            double vid = stud.namudarbai.empty() ? 0.0 : sum / (double)stud.namudarbai.size();
-            stud.balasVid = 0.4 * vid + 0.6 * stud.egzaminas;
-
-            bubbleSort(stud.namudarbai);
-            double mediana = 0.0;
-            int n = (int)stud.namudarbai.size();
-            if (n > 0)
-            {
-                if (n % 2 == 1)
-                    mediana = stud.namudarbai[n / 2];
-                else
-                    mediana = (stud.namudarbai[n / 2 - 1] + stud.namudarbai[n / 2]) / 2.0;
-            }
-            stud.balasMed = 0.4 * mediana + 0.6 * stud.egzaminas;
+            stud.skaiciuotiVidurki();
+            stud.skaiciuotiMediana();
 
             studentaivisi.push_back(stud);
         }
@@ -268,7 +235,7 @@ int main()
 
     if (pasirinkimas == 4)
     {
-        vector<int> dydziai = {1000, 10000, 100000, 1000000, 10000000};
+        vector<int> dydziai = {1000, 10000, 100000, 1000000};
         int repeats = 3;
 
         cout << "Pasirinkite strategija:\n"
@@ -318,35 +285,25 @@ int main()
                 {
                     vector<Studentas> visi;
                     visi.reserve(dydis);
-                    Studentas stud;
-                    while (in >> stud.vardas >> stud.pavarde)
+                    string v, p;
+                    while (in >> v >> p)
                     {
-                        stud.namudarbai.clear();
+                        Studentas stud;
+                        stud.setVardas(v);
+                        stud.setPavarde(p);
+                        stud.clearNamudarbai();
                         for (int i = 0; i < ndSk; i++)
                         {
                             int paz;
                             in >> paz;
-                            stud.namudarbai.push_back(paz);
+                            stud.addNamuDarbas(paz);
                         }
-                        in >> stud.egzaminas;
+                        int egz;
+                        in >> egz;
+                        stud.setEgzaminas(egz);
 
-                        double sum = 0;
-                        for (int x : stud.namudarbai)
-                            sum += x;
-                        double vid = stud.namudarbai.empty() ? 0.0 : sum / (double)stud.namudarbai.size();
-                        stud.balasVid = 0.4 * vid + 0.6 * stud.egzaminas;
-
-                        bubbleSort(stud.namudarbai);
-                        double mediana = 0.0;
-                        int n = (int)stud.namudarbai.size();
-                        if (n > 0)
-                        {
-                            if (n % 2 == 1)
-                                mediana = stud.namudarbai[n / 2];
-                            else
-                                mediana = (stud.namudarbai[n / 2 - 1] + stud.namudarbai[n / 2]) / 2.0;
-                        }
-                        stud.balasMed = 0.4 * mediana + 0.6 * stud.egzaminas;
+                        stud.skaiciuotiVidurki();
+                        stud.skaiciuotiMediana();
 
                         visi.push_back(stud);
                     }
@@ -370,35 +327,25 @@ int main()
                 else
                 {
                     list<Studentas> visi;
-                    Studentas stud;
-                    while (in >> stud.vardas >> stud.pavarde)
+                    string v, p;
+                    while (in >> v >> p)
                     {
-                        stud.namudarbai.clear();
+                        Studentas stud;
+                        stud.setVardas(v);
+                        stud.setPavarde(p);
+                        stud.clearNamudarbai();
                         for (int i = 0; i < ndSk; i++)
                         {
                             int paz;
                             in >> paz;
-                            stud.namudarbai.push_back(paz);
+                            stud.addNamuDarbas(paz);
                         }
-                        in >> stud.egzaminas;
+                        int egz;
+                        in >> egz;
+                        stud.setEgzaminas(egz);
 
-                        double sum = 0;
-                        for (int x : stud.namudarbai)
-                            sum += x;
-                        double vid = stud.namudarbai.empty() ? 0.0 : sum / (double)stud.namudarbai.size();
-                        stud.balasVid = 0.4 * vid + 0.6 * stud.egzaminas;
-
-                        bubbleSort(stud.namudarbai);
-                        double mediana = 0.0;
-                        int n = (int)stud.namudarbai.size();
-                        if (n > 0)
-                        {
-                            if (n % 2 == 1)
-                                mediana = stud.namudarbai[n / 2];
-                            else
-                                mediana = (stud.namudarbai[n / 2 - 1] + stud.namudarbai[n / 2]) / 2.0;
-                        }
-                        stud.balasMed = 0.4 * mediana + 0.6 * stud.egzaminas;
+                        stud.skaiciuotiVidurki();
+                        stud.skaiciuotiMediana();
 
                         visi.push_back(stud);
                     }
