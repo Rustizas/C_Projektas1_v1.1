@@ -14,14 +14,42 @@
 
 using namespace std;
 
-struct Studentas
+class Studentas
 {
-    string vardas;
-    string pavarde;
-    vector<int> namudarbai;
-    int egzaminas;
-    double balasVid;
-    double balasMed;
+private:
+    string vardas_;
+    string pavarde_;
+    vector<int> namudarbai_;
+    int egzaminas_;
+    double balasVid_;
+    double balasMed_;
+
+public:
+    Studentas();
+    Studentas(const string &v, const string &p);
+    Studentas(const string &v, const string &p, const vector<int> &nd, int egz);
+    Studentas(const Studentas &other);
+    Studentas &operator=(const Studentas &other);
+    ~Studentas();
+
+    string getVardas() const { return vardas_; }
+    string getPavarde() const { return pavarde_; }
+    vector<int> getNamudarbai() const { return namudarbai_; }
+    int getEgzaminas() const { return egzaminas_; }
+    double getBalasVid() const { return balasVid_; }
+    double getBalasMed() const { return balasMed_; }
+
+    void setVardas(const string &v) { vardas_ = v; }
+    void setPavarde(const string &p) { pavarde_ = p; }
+    void addNamuDarbas(int nd) { namudarbai_.push_back(nd); }
+    void setNamudarbai(const vector<int> &nd) { namudarbai_ = nd; }
+    void clearNamudarbai() { namudarbai_.clear(); }
+    void setEgzaminas(int egz) { egzaminas_ = egz; }
+    void setBalasVid(double b) { balasVid_ = b; }
+    void setBalasMed(double b) { balasMed_ = b; }
+
+    void skaiciuotiVidurki();
+    void skaiciuotiMediana();
 };
 
 void bubbleSort(vector<int> &v);
