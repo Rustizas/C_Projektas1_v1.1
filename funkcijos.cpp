@@ -2,22 +2,22 @@
 
 Studentas::Studentas() : vardas_(""), pavarde_(""), egzaminas_(0), balasVid_(0.0), balasMed_(0.0) {}
 
-Studentas::Studentas(const string &v, const string &p)
+Studentas::Studentas(const string& v, const string& p) 
     : vardas_(v), pavarde_(p), egzaminas_(0), balasVid_(0.0), balasMed_(0.0) {}
 
-Studentas::Studentas(const string &v, const string &p, const vector<int> &nd, int egz)
-    : vardas_(v), pavarde_(p), namudarbai_(nd), egzaminas_(egz), balasVid_(0.0), balasMed_(0.0)
+Studentas::Studentas(const string& v, const string& p, const vector<int>& nd, int egz)
+    : vardas_(v), pavarde_(p), namudarbai_(nd), egzaminas_(egz), balasVid_(0.0), balasMed_(0.0) 
 {
     skaiciuotiVidurki();
     skaiciuotiMediana();
 }
 
-Studentas::Studentas(const Studentas &other)
-    : vardas_(other.vardas_), pavarde_(other.pavarde_),
+Studentas::Studentas(const Studentas& other)
+    : vardas_(other.vardas_), pavarde_(other.pavarde_), 
       namudarbai_(other.namudarbai_), egzaminas_(other.egzaminas_),
       balasVid_(other.balasVid_), balasMed_(other.balasMed_) {}
 
-Studentas &Studentas::operator=(const Studentas &other)
+Studentas& Studentas::operator=(const Studentas& other)
 {
     if (this != &other)
     {
@@ -36,8 +36,7 @@ Studentas::~Studentas() {}
 void Studentas::skaiciuotiVidurki()
 {
     double sum = 0;
-    for (int x : namudarbai_)
-        sum += x;
+    for (int x : namudarbai_) sum += x;
     double vid = namudarbai_.empty() ? 0.0 : sum / (double)namudarbai_.size();
     balasVid_ = 0.4 * vid + 0.6 * egzaminas_;
 }
@@ -53,10 +52,8 @@ void Studentas::skaiciuotiMediana()
     bubbleSort(sorted);
     double mediana = 0.0;
     int n = sorted.size();
-    if (n % 2 == 1)
-        mediana = sorted[n / 2];
-    else
-        mediana = (sorted[n / 2 - 1] + sorted[n / 2]) / 2.0;
+    if (n % 2 == 1) mediana = sorted[n / 2];
+    else mediana = (sorted[n / 2 - 1] + sorted[n / 2]) / 2.0;
     balasMed_ = 0.4 * mediana + 0.6 * egzaminas_;
 }
 
@@ -137,8 +134,7 @@ void padalintiStudentus_strategija1(const vector<Studentas> &visi,
            << setw(20) << "Galutinis (Vid.)" << endl
            << string(50, '-') << endl;
         for (const auto &s : vargsiukai)
-            os << left << setw(15) << s.getPavarde() << setw(15) << s.getVardas()
-               << setw(20) << fixed << setprecision(2) << s.getBalasVid() << endl;
+            os << s << endl;
     }
     auto endVargsiukai = chrono::high_resolution_clock::now();
     tWriteVargs = chrono::duration<double>(endVargsiukai - startVargsiukai).count();
@@ -150,8 +146,7 @@ void padalintiStudentus_strategija1(const vector<Studentas> &visi,
            << setw(20) << "Galutinis (Vid.)" << endl
            << string(50, '-') << endl;
         for (const auto &s : kietiakiai)
-            os << left << setw(15) << s.getPavarde() << setw(15) << s.getVardas()
-               << setw(20) << fixed << setprecision(2) << s.getBalasVid() << endl;
+            os << s << endl;
     }
     auto endKietiakiai = chrono::high_resolution_clock::now();
     tWriteKiet = chrono::duration<double>(endKietiakiai - startKietiakiai).count();
@@ -181,8 +176,7 @@ void padalintiStudentus_strategija1(const list<Studentas> &visi,
            << setw(20) << "Galutinis (Vid.)" << endl
            << string(50, '-') << endl;
         for (const auto &s : vargsiukai)
-            os << left << setw(15) << s.getPavarde() << setw(15) << s.getVardas()
-               << setw(20) << fixed << setprecision(2) << s.getBalasVid() << endl;
+            os << s << endl;
     }
     auto endVargsiukai = chrono::high_resolution_clock::now();
     tWriteVargs = chrono::duration<double>(endVargsiukai - startVargsiukai).count();
@@ -194,8 +188,7 @@ void padalintiStudentus_strategija1(const list<Studentas> &visi,
            << setw(20) << "Galutinis (Vid.)" << endl
            << string(50, '-') << endl;
         for (const auto &s : kietiakiai)
-            os << left << setw(15) << s.getPavarde() << setw(15) << s.getVardas()
-               << setw(20) << fixed << setprecision(2) << s.getBalasVid() << endl;
+            os << s << endl;
     }
     auto endKietiakiai = chrono::high_resolution_clock::now();
     tWriteKiet = chrono::duration<double>(endKietiakiai - startKietiakiai).count();
@@ -235,8 +228,7 @@ void padalintiStudentus_strategija2(vector<Studentas> &visi,
            << setw(20) << "Galutinis (Vid.)" << endl
            << string(50, '-') << endl;
         for (const auto &s : vargsiukai)
-            os << left << setw(15) << s.getPavarde() << setw(15) << s.getVardas()
-               << setw(20) << fixed << setprecision(2) << s.getBalasVid() << endl;
+            os << s << endl;
     }
     auto endVargsiukai = chrono::high_resolution_clock::now();
     tWriteVargs = chrono::duration<double>(endVargsiukai - startVargsiukai).count();
@@ -248,8 +240,7 @@ void padalintiStudentus_strategija2(vector<Studentas> &visi,
            << setw(20) << "Galutinis (Vid.)" << endl
            << string(50, '-') << endl;
         for (const auto &s : visi)
-            os << left << setw(15) << s.getPavarde() << setw(15) << s.getVardas()
-               << setw(20) << fixed << setprecision(2) << s.getBalasVid() << endl;
+            os << s << endl;
     }
     auto endKietiakiai = chrono::high_resolution_clock::now();
     tWriteKiet = chrono::duration<double>(endKietiakiai - startKietiakiai).count();
@@ -288,8 +279,7 @@ void padalintiStudentus_strategija2(list<Studentas> &visi,
            << setw(20) << "Galutinis (Vid.)" << endl
            << string(50, '-') << endl;
         for (const auto &s : vargsiukai)
-            os << left << setw(15) << s.getPavarde() << setw(15) << s.getVardas()
-               << setw(20) << fixed << setprecision(2) << s.getBalasVid() << endl;
+            os << s << endl;
     }
     auto endVargsiukai = chrono::high_resolution_clock::now();
     tWriteVargs = chrono::duration<double>(endVargsiukai - startVargsiukai).count();
@@ -301,8 +291,7 @@ void padalintiStudentus_strategija2(list<Studentas> &visi,
            << setw(20) << "Galutinis (Vid.)" << endl
            << string(50, '-') << endl;
         for (const auto &s : visi)
-            os << left << setw(15) << s.getPavarde() << setw(15) << s.getVardas()
-               << setw(20) << fixed << setprecision(2) << s.getBalasVid() << endl;
+            os << s << endl;
     }
     auto endKietiakiai = chrono::high_resolution_clock::now();
     tWriteKiet = chrono::duration<double>(endKietiakiai - startKietiakiai).count();
@@ -334,8 +323,7 @@ void padalintiStudentus_strategija3(vector<Studentas> &visi,
            << setw(20) << "Galutinis (Vid.)" << endl
            << string(50, '-') << endl;
         for (const auto &s : vargsiukai)
-            os << left << setw(15) << s.getPavarde() << setw(15) << s.getVardas()
-               << setw(20) << fixed << setprecision(2) << s.getBalasVid() << endl;
+            os << s << endl;
     }
     auto endVargsiukai = chrono::high_resolution_clock::now();
     tWriteVargs = chrono::duration<double>(endVargsiukai - startVargsiukai).count();
@@ -347,8 +335,7 @@ void padalintiStudentus_strategija3(vector<Studentas> &visi,
            << setw(20) << "Galutinis (Vid.)" << endl
            << string(50, '-') << endl;
         for (const auto &s : visi)
-            os << left << setw(15) << s.getPavarde() << setw(15) << s.getVardas()
-               << setw(20) << fixed << setprecision(2) << s.getBalasVid() << endl;
+            os << s << endl;
     }
     auto endKietiakiai = chrono::high_resolution_clock::now();
     tWriteKiet = chrono::duration<double>(endKietiakiai - startKietiakiai).count();
@@ -357,6 +344,7 @@ void padalintiStudentus_strategija3(vector<Studentas> &visi,
          << " s, vargsiukai->failas = " << tWriteVargs
          << " s, kietiakiai->failas = " << tWriteKiet << " s" << endl;
 }
+
 istream& operator>>(istream& is, Studentas& s)
 {
     string v, p;
