@@ -357,3 +357,19 @@ void padalintiStudentus_strategija3(vector<Studentas> &visi,
          << " s, vargsiukai->failas = " << tWriteVargs
          << " s, kietiakiai->failas = " << tWriteKiet << " s" << endl;
 }
+istream& operator>>(istream& is, Studentas& s)
+{
+    string v, p;
+    is >> v >> p;
+    s.setVardas(v);
+    s.setPavarde(p);
+    return is;
+}
+
+ostream& operator<<(ostream& os, const Studentas& s)
+{
+    os << left << setw(15) << s.getPavarde() 
+       << setw(15) << s.getVardas()
+       << setw(20) << fixed << setprecision(2) << s.getBalasVid();
+    return os;
+}
