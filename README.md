@@ -1,41 +1,93 @@
-# Studentų Pažymių Sistema v1.1
+# Studentų Pažymių Sistema v1.2
 
-## Pakeitimai v1.1 versijoje
-
-- Struct konvertuota į class su private nariais
-- Realizuoti konstruktoriai
-- Realizuotas destruktorius ir assignment operatorius
-- Pridėti getter/setter metodai
+## Aprašymas
+Programa skirta studentų pažymių tvarkymui, skaičiavimui ir analizei. Sistema leidžia įvesti duomenis ranka, nuskaityti iš failų, ir atlikti našumo testus su skirtingomis strategijomis.
 
 ## Įdiegimas
 ```bash
-g++ -std=c++17 -O2 -o studentai main.cpp funkcijos.cpp
+g++ -std=c++17 -o studentai main.cpp funkcijos.cpp
+```
+
+## Naudojimas
+```bash
 .\studentai
 ```
 
-Arba su Makefile:
-```bash
-make O2
+### Meniu opcijos:
+1. **Įvedimas ranka** - rankinis studentų duomenų įvedimas
+2. **Nuskaitymas iš failo** - vienkartinis failo skaitymas ir dalijimas
+3. **Sugeneruoti failus** - sukuria 5 testinių failų (1K, 10K, 100K, 1M, 10M įrašų)
+4. **Benchmarkai** - našumo testavimas
+
+## v1.2 Pakeitimai - Operatorių realizacija
+
+### Realizuoti operatoriai:
+
+**Rule of Three (v1.1):**
+- Copy konstruktorius
+- Assignment operatorius
+- Destruktorius
+
+**Nauji operatoriai (v1.2):**
+
+**1. Įvesties operatorius (>>)**
+```cpp
+istream& operator>>(istream& is, Studentas& s);
 ```
+Naudojimas: failo skaitymas ir rankinis įvedimas
+```cpp
+cin >> studentas;
+fileStream >> studentas;
+```
+
+**2. Išvesties operatorius (<<)**
+```cpp
+ostream& operator<<(ostream& os, const Studentas& s);
+```
+Naudojimas: duomenų išvedimas į failą arba ekraną
+```cpp
+cout << studentas;
+fileStream << studentas;
+```
+
+**3. Palyginimo operatoriai**
+```cpp
+bool operator<(const Studentas& other) const;   pagal balą
+bool operator>(const Studentas& other) const;   pagal balą
+bool operator==(const Studentas& other) const;  pagal vardą ir pavardę
+```
+
+### Operatorių panaudojimas programoje
+
+#### Įvestis:
+- **Rankinė** - `setVardas()`, `setPavarde()`, `addNamuDarbas()`
+- **Iš failo** - `>>` operatorius vardui/pavardei nuskaityti
+- **Automatinė** - `random` biblioteka + setter metodai
+
+#### Išvestis:
+- **Į ekraną** - `cout` su formatuotais skaičiais
+- **Į failą** - `<<` operatorius (vargsiukai.txt, kietiakiai.txt)
 
 ## Testavimo rezultatai
 
-### Struct vs Class palyginimas (Vector, Strategija 3, -O3)
+### Vector + Strategija 3 (STL partition)
 
-| Versija | 100K  (s)      | 1M       (s) |
-|---------|----------------|--------------|
-| Struct  | 0.526322       | 4.871349     |
-| Class   | 0.577405       | 5.485323     |
-| Skirtumas | +9.7%        | +12.6%       |
+| Dydis | Skaitymas (s) | Dalijimas (s) | Rašymas V (s) | Rašymas K (s) | Viso (s) |
+|-------|---------------|---------------|---------------|---------------|----------|
+| 1K    | 0.002801      | 0.000632      | 0.001917      | 0.002786      | 0.008714 |
+| 10K   | 0.026624      | 0.006483      | 0.016268      | 0.022220      | 0.073095 |
+| 100K  | 0.315623      | 0.075010      | 0.164044      | 0.241606      | 0.807340 |
+| 1M    | 2.916802      | 0.710193      | 1.740338      | 2.547489      | 8.045763 |
 
-**Išvados:** Class versija ~10-13% lėtesnė dėl getter/setter, bet geresnė kodo kokybė ir saugumas.
+### Išvados:
+- Class implementacija su operatoriais veikia sklandžiai
+- Strategija 3 (STL partition) išlieka greičiausia
+- Operatoriai << ir >> supaprastina kodą ir pagerina skaitomumą
 
-### Optimizavimo flag'ų palyginimas (Class versija)
+## Programos vaizdai
 
-| Flag | 100K  (s)      | 1M  (s) |
-|------|----------------|--------------|
-| -O1  | 0.560891       | 5.494749     |
-| -O2  | 0.587369       | 5.475452     |
-| -O3  | 0.622032       | 5.619774     |
+### Pagrindinis meniu
+![Menu](menu.png)
 
-**Išvados:** O2 duoda geriausią rezultatą. O3 ne visada greičiausias.
+### Išvesties failas
+![Output](output.png)
