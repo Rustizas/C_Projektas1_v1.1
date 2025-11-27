@@ -194,12 +194,11 @@ int main()
         int ndSk = stulpeliai - 3;
 
         vector<Studentas> studentaivisi;
-        string v, p;
-        while (in >> v >> p)
+        while (true)
         {
             Studentas stud;
-            stud.setVardas(v);
-            stud.setPavarde(p);
+            if (!(in >> stud))
+                break;
             stud.clearNamudarbai();
             for (int i = 0; i < ndSk; i++)
             {
@@ -285,12 +284,11 @@ int main()
                 {
                     vector<Studentas> visi;
                     visi.reserve(dydis);
-                    string v, p;
-                    while (in >> v >> p)
+                    while (true)
                     {
                         Studentas stud;
-                        stud.setVardas(v);
-                        stud.setPavarde(p);
+                        if (!(in >> stud))
+                            break;
                         stud.clearNamudarbai();
                         for (int i = 0; i < ndSk; i++)
                         {
@@ -327,12 +325,11 @@ int main()
                 else
                 {
                     list<Studentas> visi;
-                    string v, p;
-                    while (in >> v >> p)
+                    while (true)
                     {
                         Studentas stud;
-                        stud.setVardas(v);
-                        stud.setPavarde(p);
+                        if (!(in >> stud))
+                            break;
                         stud.clearNamudarbai();
                         for (int i = 0; i < ndSk; i++)
                         {
