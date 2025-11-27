@@ -50,6 +50,10 @@ public:
 
     void skaiciuotiVidurki();
     void skaiciuotiMediana();
+
+    bool operator<(const Studentas& other) const { return balasVid_ < other.balasVid_; }
+    bool operator>(const Studentas& other) const { return balasVid_ > other.balasVid_; }
+    bool operator==(const Studentas& other) const { return vardas_ == other.vardas_ && pavarde_ == other.pavarde_; }
 };
 
 istream& operator>>(istream& is, Studentas& s);
