@@ -26,5 +26,3 @@ O3: clean $(TARGET)
 
 clean:
 	rm -f $(OBJECTS) $(TARGET) $(TARGET).exe
-
-.PHONY: all clean O1 O2 O3

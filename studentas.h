@@ -52,6 +52,9 @@ public:
     void skaiciuotiMediana();
 };
 
+istream& operator>>(istream& is, Studentas& s);
+ostream& operator<<(ostream& os, const Studentas& s);
+
 void bubbleSort(vector<int> &v);
 int randomPazymys(mt19937 &gen);
 void generuotiFaila(const string &failoVardas, int kiekis);
