@@ -1,76 +1,50 @@
-# Studentų Pažymių Sistema v1.2
+# Studentų Pažymių Sistema v1.5
 
-## Aprašymas
-Programa skirta studentų pažymių tvarkymui, skaičiavimui ir analizei. Sistema leidžia įvesti duomenis ranka, nuskaityti iš failų, ir atlikti našumo testus su skirtingomis strategijomis.
+## v1.5 Pakeitimai - Abstrakti bazinė klasė
 
-## Įdiegimas
-```bash
-g++ -std=c++17 -o studentai main.cpp funkcijos.cpp
-```
 
-## Naudojimas
-```bash
-.\studentai
-```
+### Zmogus klasė (Abstract Base Class)
 
-### Meniu opcijos:
-1. **Įvedimas ranka** - rankinis studentų duomenų įvedimas
-2. **Nuskaitymas iš failo** - vienkartinis failo skaitymas ir dalijimas
-3. **Sugeneruoti failus** - sukuria 5 testinių failų (1K, 10K, 100K, 1M, 10M įrašų)
-4. **Benchmarkai** - našumo testavimas
+**Private nariai:**
+- `string vardas_`
+- `string pavarde_`
 
-## v1.2 Pakeitimai - Operatorių realizacija
-
-### Realizuoti operatoriai:
-
-**Rule of Three (v1.1):**
-- Copy konstruktorius
+**Public metodai:**
+- Konstruktoriai (default, parametrized, copy)
 - Assignment operatorius
-- Destruktorius
+- Virtual destruktorius
+- Getter/Setter metodai
 
-**Nauji operatoriai (v1.2):**
+### Studentas klasė (Derived Class)
 
-**1. Įvesties operatorius (>>)**
-```cpp
-istream& operator>>(istream& is, Studentas& s);
-```
-Naudojimas: failo skaitymas ir rankinis įvedimas
-```cpp
-cin >> studentas;
-fileStream >> studentas;
-```
+Studentas paveldi iš Zmogus ir prideda:
+- Studento specifinius duomenis (pažymiai, egzaminas)
+- Implementuoja `isvesti()` funkciją
+- Išlaiko visą v1.2 funkcionalumą
 
-**2. Išvesties operatorius (<<)**
-```cpp
-ostream& operator<<(ostream& os, const Studentas& s);
-```
-Naudojimas: duomenų išvedimas į failą arba ekraną
-```cpp
-cout << studentas;
-fileStream << studentas;
-```
+### v1.5 vs v1.2 palyginimas
 
-**3. Palyginimo operatoriai**
-```cpp
-bool operator<(const Studentas& other) const;   pagal balą
-bool operator>(const Studentas& other) const;   pagal balą
-bool operator==(const Studentas& other) const;  pagal vardą ir pavardę
+| Aspektas | v1.2 | v1.5 |
+|----------|------|------|
+| Klasių skaičius | 1 (Studentas) | 2 (Zmogus + Studentas) |
+| Inheritance | Ne | Taip (Studentas : public Zmogus) |
+| Abstrakti klasė | Ne | Taip (Zmogus) |
+| Pure virtual | Ne | Taip (isvesti()) |
+| Funkcionalumas | Pilnas | Pilnas (išlaikytas) |
+
+### Kompiliavimas
+```bash
+g++ -std=c++17 -o studentai main.cpp funkcijos.cpp zmogus.cpp
 ```
 
-### Operatorių panaudojimas programoje
-
-#### Įvestis:
-- **Rankinė** - `setVardas()`, `setPavarde()`, `addNamuDarbas()`
-- **Iš failo** - `>>` operatorius vardui/pavardei nuskaityti
-- **Automatinė** - `random` biblioteka + setter metodai
-
-#### Išvestis:
-- **Į ekraną** - `cout` su formatuotais skaičiais
-- **Į failą** - `<<` operatorius (vargsiukai.txt, kietiakiai.txt)
+Arba su Makefile:
+```bash
+make
+```
 
 ## Testavimo rezultatai
 
-### Vector + Strategija 3 (STL partition)
+Programa išlaiko visą v1.2 funkcionalumą. Testavimo rezultatai identiški:
 
 | Dydis | Skaitymas (s) | Dalijimas (s) | Rašymas V (s) | Rašymas K (s) | Viso (s) |
 |-------|---------------|---------------|---------------|---------------|----------|
@@ -79,15 +53,13 @@ bool operator==(const Studentas& other) const;  pagal vardą ir pavardę
 | 100K  | 0.315623      | 0.075010      | 0.164044      | 0.241606      | 0.807340 |
 | 1M    | 2.916802      | 0.710193      | 1.740338      | 2.547489      | 8.045763 |
 
-### Išvados:
-- Class implementacija su operatoriais veikia sklandžiai
-- Strategija 3 (STL partition) išlieka greičiausia
-- Operatoriai << ir >> supaprastina kodą ir pagerina skaitomumą
+## Versijos
 
-## Programos vaizdai
+**v1.5** - Abstrakti Zmogus bazinė klasė, inheritance hierarchy  
+**v1.2** - Įvesties/išvesties operatoriai, palyginimo operatoriai  
+**v1.1** - Struct → Class konversija, Rule of Three  
+**v1.0** - 3 dalijimo strategijos, vector/list palaikymas
 
-### Pagrindinis meniu
-![Menu](menu.png)
-
-### Išvesties failas
-![Output](output.png)
+## Sistemos reikalavimai
+- C++17 arba naujesnė versija
+- g++ kompiliatorius
