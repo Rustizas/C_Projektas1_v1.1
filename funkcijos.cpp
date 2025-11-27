@@ -1,28 +1,26 @@
 #include "studentas.h"
 
-Studentas::Studentas() : vardas_(""), pavarde_(""), egzaminas_(0), balasVid_(0.0), balasMed_(0.0) {}
+Studentas::Studentas() : Zmogus(), egzaminas_(0), balasVid_(0.0), balasMed_(0.0) {}
 
 Studentas::Studentas(const string& v, const string& p) 
-    : vardas_(v), pavarde_(p), egzaminas_(0), balasVid_(0.0), balasMed_(0.0) {}
+    : Zmogus(v, p), egzaminas_(0), balasVid_(0.0), balasMed_(0.0) {}
 
 Studentas::Studentas(const string& v, const string& p, const vector<int>& nd, int egz)
-    : vardas_(v), pavarde_(p), namudarbai_(nd), egzaminas_(egz), balasVid_(0.0), balasMed_(0.0) 
+    : Zmogus(v, p), namudarbai_(nd), egzaminas_(egz), balasVid_(0.0), balasMed_(0.0) 
 {
     skaiciuotiVidurki();
     skaiciuotiMediana();
 }
 
 Studentas::Studentas(const Studentas& other)
-    : vardas_(other.vardas_), pavarde_(other.pavarde_), 
-      namudarbai_(other.namudarbai_), egzaminas_(other.egzaminas_),
+    : Zmogus(other), namudarbai_(other.namudarbai_), egzaminas_(other.egzaminas_),
       balasVid_(other.balasVid_), balasMed_(other.balasMed_) {}
 
 Studentas& Studentas::operator=(const Studentas& other)
 {
     if (this != &other)
     {
-        vardas_ = other.vardas_;
-        pavarde_ = other.pavarde_;
+        Zmogus::operator=(other);
         namudarbai_ = other.namudarbai_;
         egzaminas_ = other.egzaminas_;
         balasVid_ = other.balasVid_;
@@ -32,6 +30,13 @@ Studentas& Studentas::operator=(const Studentas& other)
 }
 
 Studentas::~Studentas() {}
+
+void Studentas::isvesti() const
+{
+    cout << left << setw(15) << pavarde_ 
+         << setw(15) << vardas_
+         << setw(20) << fixed << setprecision(2) << balasVid_ << endl;
+}
 
 void Studentas::skaiciuotiVidurki()
 {
