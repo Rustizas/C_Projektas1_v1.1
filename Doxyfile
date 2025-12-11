@@ -1,0 +1,8 @@
+PROJECT_NAME = "Studentu Sistema"
+OUTPUT_DIRECTORY = docs
+INPUT = zmogus.h studentas.h
+RECURSIVE = NO
+EXTRACT_ALL = YES
+GENERATE_LATEX = NO
+GENERATE_HTML = YES
+HTML_OUTPUT = html
